@@ -1,42 +1,51 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>BadRadio Webamp</title>
-
-  <!-- ✅ Correct CDN link -->
-  <script src="https://unpkg.com/webamp@1.5.0/built/webamp.bundle.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/webamp@1.5.0/built/webamp.css">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BadRadio Webamp v2</title>
   <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    html,body {
+      margin:0;
+      height:100%;
+      background:#000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     #app {
-      width: 100%;
-      height: 100%;
+      width:100%;
+      height:100%;
     }
   </style>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">Loading Webamp...</div>
 
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const webamp = new Webamp({
-        initialTracks: [{
+  <script type="module">
+    import Webamp from "https://unpkg.com/webamp@^2/butterchurn";
+
+    const webamp = new Webamp({
+      initialTracks: [
+        {
           metaData: { artist: "BadRadio.nz", title: "Live Stream" },
-          url: "https://badradio.nz/stream.mp3"
-        }]
-      });
-
-      webamp.renderWhenReady(document.getElementById("app"));
+          url: "https://badradio.nz/stream.mp3",
+        },
+      ],
+      // optional skin:
+      // initialSkin: { url: "https://cdn.jsdelivr.net/npm/webamp-modern-skins@latest/dist/Green Dimension V2.wsz" },
+      __butterchurnOptions: {
+        importButterchurn: () =>
+          import("https://unpkg.com/butterchurn@^2/butterchurn.mjs"),
+        getPresets: () =>
+          fetch("https://unpkg.com/webamp@^2/butterchurn-presets.json").then(r =>
+            r.json()
+          ),
+        butterchurnOpen: true,
+      },
     });
+
+    webamp.renderWhenReady(document.getElementById("app"));
   </script>
 </body>
 </html>
