@@ -1,47 +1,41 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Webamp — BadRadio</title>
-  <!-- Webamp JS/CSS from official docs (example usage) -->
-  <script src="https://cdn.jsdelivr.net/gh/captbaritone/webamp@latest/dist/webamp.bundle.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/captbaritone/webamp@latest/dist/webamp.css" />
+  <meta charset="utf-8">
+  <title>BadRadio Webamp</title>
+
+  <!-- ✅ Correct CDN link -->
+  <script src="https://unpkg.com/webamp@1.5.0/built/webamp.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/webamp@1.5.0/built/webamp.css">
+
   <style>
-    /* shrink page so iframe fits nicely */
-    html,body { height:100%; margin:0; background:#000; }
-    #app { width: 100%; height: 100%; display:flex; align-items:flex-start; justify-content:center; padding:6px; box-sizing:border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #app {
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
   <div id="app"></div>
 
   <script>
-    // URL for BadRadio's stream (from their site). If this doesn't play, try the station's /stream URL variants.
-    const streamUrl = "https://badradio.nz/stream";
-
-    // Create a Webamp instance with one initial track that is the stream URL
-    const webamp = new Webamp({
-      initialTracks: [
-        {
+    window.addEventListener("DOMContentLoaded", () => {
+      const webamp = new Webamp({
+        initialTracks: [{
           metaData: { artist: "BadRadio.nz", title: "Live Stream" },
-          // for many shoutcast/icecast mp3 streams this works directly
-          url: streamUrl,
-          duration: 0
-        }
-      ],
-      initialSkin: {
-        // optional: use default skin or provide a direct .wsz/.skin url
-      }
-    });
+          url: "https://badradio.nz/stream.mp3"
+        }]
+      });
 
-    // Render into the page
-    webamp.renderWhenReady(document.getElementById("app")).then(() => {
-      console.log("Webamp ready");
-      // NOTE: autoplay may be blocked — user needs to hit play in many browsers.
-    }).catch(err => {
-      console.error("Failed to load Webamp:", err);
-      document.getElementById("app").innerText = "Failed to load player.";
+      webamp.renderWhenReady(document.getElementById("app"));
     });
   </script>
 </body>
