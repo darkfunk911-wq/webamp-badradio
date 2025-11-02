@@ -29,11 +29,9 @@
       initialTracks: [
         {
           metaData: { artist: "BadRadio.nz", title: "Live Stream" },
-          url: "https://s2.radio.co/s2b2b68744/listen",
-        },
+          url: "https://s2.radio.co/s2b2b68744/listen"
+        }
       ],
-      // optional skin:
-      // initialSkin: { url: "https://cdn.jsdelivr.net/npm/webamp-modern-skins@latest/dist/Green Dimension V2.wsz" },
       __butterchurnOptions: {
         importButterchurn: () =>
           import("https://unpkg.com/butterchurn@^2/butterchurn.mjs"),
@@ -41,8 +39,8 @@
           fetch("https://unpkg.com/webamp@^2/butterchurn-presets.json").then(r =>
             r.json()
           ),
-        butterchurnOpen: true,
-      },
+        butterchurnOpen: true
+      }
     });
 
     webamp.renderWhenReady(document.getElementById("app"));
